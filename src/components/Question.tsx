@@ -8,11 +8,13 @@ type QuestionProps = {
         avatar: string
     },
     children?: ReactNode;
+    isAnswered?: boolean;
+    isHighlighted?: boolean;
 }
 
-export function Question({content, author, children}: QuestionProps) {
+export function Question({content, author, isAnswered = false, isHighlighted = false, children}: QuestionProps) {
     return (
-       <div className="question">
+       <div className={`question ${isAnswered ? 'answered' : ''} ${isHighlighted && !isAnswered? 'highlighted' : ''}`}>
            <p>{ content }</p>
 
            <footer>
@@ -20,7 +22,7 @@ export function Question({content, author, children}: QuestionProps) {
                    <img src={ author.avatar } alt={ author.name } />
                    <span>{ author.name }</span>
                </div>
-               <div>{children}</div>
+               <div className="gap">{children}</div>
            </footer>
        </div>
     );
